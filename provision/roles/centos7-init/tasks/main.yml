@@ -1,0 +1,45 @@
+---
+- name: yum upgrade all
+  yum: name=* state=latest
+
+- name: yum install fundamental packages
+  yum: name={{ item }} state=present
+  with_items:
+    - "@development"
+    - policycoreutils-python
+    - epel-release
+    - chrony
+
+- name: yum install ansible
+  yum: name=ansible state=present
+
+- name: Set SELinux turned off
+  selinux: state=disabled
+
+- name: Start chrony(ex.ntpd)
+  service:
+    name: chronyd
+    state: started
+    enabled: yes
+
+- name: Register timezone var
+  shell: timedatectl | grep Timezone
+  register: timezone
+
+- name: Chenge Timezone
+  shell: timedatectl set-timezone Asia/Tokyo
+  when: timezone != "Asia/Tokyo (JST, +0900)"
+
+- name: Start firewalld(ex.iptables)
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: Enable ports
+  firewalld: service={{ item }} permanent=true state=enabled
+  with_items:
+    - http
+    - https
+    - smtp
+  notify: restart firewalld

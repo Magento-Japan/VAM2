@@ -1,0 +1,10 @@
+---
+- name: configure Magento2 to Vagrant CentOS7
+  hosts: all
+  max_fail_percentage: 0
+  sudo: yes
+  roles:
+    - centos7-init
+    - lamp56
+    - magento2
+    # - magento2-jp-translation

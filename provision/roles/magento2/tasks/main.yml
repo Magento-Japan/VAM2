@@ -1,0 +1,74 @@
+---
+- name: yum install development tools
+  yum: name={{ item }} state=present
+  with_items:
+    - git
+    - vim
+    - tree
+
+- name: yum install packages Magento2 requirement
+  yum: name={{ item }} state=present
+  with_items:
+    - php56w-opcache
+    - php56w-xml
+    - php56w-mcrypt
+    - php56w-gd
+    - php56w-intl
+    - php56w-mbstring
+    - curl
+    - ImageMagick
+
+- name: yum install packages Magento2 optional
+  yum: name={{ item }} state=present
+  with_items:
+    - php56w-pecl-xdebug
+    - php-phpunit-PHPUnit
+
+- name: Install composer globally
+  shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  args:
+    creates: /usr/local/bin/composer
+
+- name: chown /var/www/html
+  file: path=/var/www/html state=directory owner=vagrant group=vagrant
+
+- name: git clone Magent2 from github
+  git:
+    repo=https://github.com/magento/magento2.git
+    dest=/var/www/html/magento2
+
+- name: chown /var/www/html/
+  file: path=/var/www/html/magento2 state=directory recurse=yes owner=vagrant group=vagrant
+
+- name: Set permission to app directory
+  shell: find /var/www/html -type d -exec chmod 755 {} \;
+
+- name: Set Permission to app files
+  shell: find /var/www/html -type f -exec chmod 644 {} \;
+
+- name: Set Permission to app/bin directory
+  shell: chmod +x /var/www/html/magento2/bin/magento
+
+- name: composer install dependency
+  composer: command=install working_dir=/var/www/html/magento2
+
+- name: chown /var/www/html
+  file: path=/var/www/html state=directory recurse=yes owner=apache group=apache
+
+- name: Install mysql-python package for ansible configuration
+  yum: name=MySQL-python state=present
+
+- name: ensure anonymous users are not in the database
+  mysql_user: name='' state=absent
+
+- name: remove the test database
+  mysql_db: name=test state=absent
+
+- name: Create Magento database
+  mysql_db: name=magento2_db collation=utf8_general_ci encoding=utf8 state=present
+
+- name: Create Magento database user
+  mysql_user: name=magento2_user password=password priv=magento2_db.*:ALL host='localhost' state=present
+
+- name: update mysql root password for all root accounts
+  mysql_user: name=root password=password state=present
