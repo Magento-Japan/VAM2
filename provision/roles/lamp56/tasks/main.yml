@@ -1,0 +1,34 @@
+---
+- name: Install webtatic php56/el7 rpm
+  yum: state=present name=https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+
+- name: yum install LAMP56 basic packages
+  yum: name={{ item }} state=present
+  with_items:
+    - httpd
+    - httpd-devel
+    - php56w
+    - php56w-devel
+    - php56w-mysql
+    - mariadb
+    - mariadb-devel
+    - mariadb-server
+
+- name: Set Asia/Tokyo to date.timezone on php.ini
+  lineinfile:
+    dest: /etc/php.ini
+    backrefs: yes
+    regexp: '^;date.timezone ='
+    line: 'date.timezone = Asia/Tokyo'
+
+- name: Start httpd
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Start mariadb
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
