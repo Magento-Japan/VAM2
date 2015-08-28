@@ -36,6 +36,7 @@
   git:
     repo=https://github.com/magento/magento2.git
     dest=/var/www/html/magento2
+    force=yes
 
 - name: chown /var/www/html/
   file: path=/var/www/html/magento2 state=directory recurse=yes owner=vagrant group=vagrant
@@ -72,3 +73,6 @@
 
 - name: update mysql root password for all root accounts
   mysql_user: name=root password=password state=present
+
+- name: reboot
+  command: shutdown -r -t 3
