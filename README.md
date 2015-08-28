@@ -7,7 +7,7 @@ Vagrantを利用した日本語版`Magento2β`開発環境〜季節のCentOS7+PH
 ## Requirements
 - `vagrant >= 1.7.4`
 - `Ansible >= 1.9.2`
-- `virtualbox` >= 5.0.2`
+- `virtualbox >= 5.0.2`
 
 ## DB
 - `db name` = `magento2_db`
