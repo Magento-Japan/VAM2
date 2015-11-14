@@ -1,21 +1,26 @@
-# VAM2JP(vagrant-ansible-magento2-jp)
-Vagrantを利用した日本語版`Magento2β`開発環境〜季節のCentOS7+PHP5.6を添えて〜
+# VAM2(vagrant-ansible-magento2)
+Magento2β on CentOS7.1 LAMP stack.
 
 ## Configuration
-`vagrant up`
+0. `git clone`
+0. Rename `/provision/group_vars/all.yml.sample` to `/provision/group_vars/all.yml`.
+0. Add [github personal access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/) to `all.yml`.(for [composer install](https://getcomposer.org/doc/articles/troubleshooting.md#api-rate-limit-and-oauth-tokens))
+0.`vagrant up`
+
+## Stack
+- CentOS 7.1(boxcutter/centos71)
+- PHP 5.6(from webtatic rpm)
+- MariaDB 10.0
 
 ## Requirements
-- `vagrant >= 1.7.4`
-- `Ansible >= 1.9.2`
-- `virtualbox >= 5.0.2`
+- [vagrant](https://www.vagrantup.com/) = 1.7.4
+- [ansible](http://www.ansible.com/) = 1.9.2
+- [virtualbox](https://www.virtualbox.org/wiki/Downloads) = 5.0.2
 
-## DB
+## DB info.
 - `db name` = `magento2_db`
 - `db user name` = `magento2_user`
-- `db password(root,magento2_user)` = `password`
+- `db password(root & magento2_user)` = `password`
 
-## Note
-- Magento2初期設定と日本語データのデプロイが未完
-- boxは`boxcutter/centos71`を利用している
-- 専用boxを用意するつもりがある（Pack時のコードも残せばいいかな）
-- 冪等性...
+## NOTE
+http://devdocs.magento.com/guides/v1.0/install-gde/install/composer-clone.html#instgde-prereq-compose-access
