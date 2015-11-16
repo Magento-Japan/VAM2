@@ -9,8 +9,8 @@ Magento2-RC2の簡単セットアップ開発環境（CentOS7.1)
 
 ## 構成
 - boxcutter/centos71 (virtualbox, 2.0.7)
-- PHP 5.6(from webtatic rpm)
-- MariaDB 10.0.22(from mariadb.org rpm)
+- PHP 5.6 (from webtatic rpm)
+- MariaDB 10.0.22 (from mariadb.org rpm)
 
 ## 必要要件（以下環境での動作確認済み）
 - [vagrant](https://www.vagrantup.com/) = 1.7.4
