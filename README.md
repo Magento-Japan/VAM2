@@ -57,5 +57,13 @@ Magento2β on CentOS7.1 LAMP stack.
 - `db user name` = `magento2_user`
 - `db password(root & magento2_user)` = `password`
 
+## Site information
+- front URI = `[Vagrant URL]/magento2/`
+- admin URI = `[Vagrant URL]/magento2/admin/`
+- admin user name = `admin`
+- admin user pass = `admin123`
+
+[Show all variables](provision/group_vars/all.yml.sample)
+
 ## NOTE
 [Installation quick reference (tutorial)](http://devdocs.magento.com/guides/v2.0/install-gde/install-quick-ref.html)
