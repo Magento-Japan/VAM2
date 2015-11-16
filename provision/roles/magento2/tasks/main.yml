@@ -87,9 +87,6 @@
 - name: add magento-cli PATH to .bash_profile
   lineinfile: dest=/home/vagrant/.bash_profile line="export PATH=$PATH:/var/www/html/magento2/bin"
 
-- name: chown /var/www/html/
-  file: path=/var/www/html/ state=directory recurse=yes owner=apache group=apache
-
 # init db
 
 - name: Install mysql-python package for ansible configuration
