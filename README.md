@@ -44,8 +44,8 @@ Magento2β on CentOS7.1 LAMP stack.
 
 ## Stack
 - boxcutter/centos71 (virtualbox, 2.0.7)
-- PHP 5.6(from webtatic rpm)
-- MariaDB 10.0.22(from mariadb.org rpm)
+- PHP 5.6 (from webtatic rpm)
+- MariaDB 10.0.22 (from mariadb.org rpm)
 
 ## Requirements
 - [vagrant](https://www.vagrantup.com/) = 1.7.4
