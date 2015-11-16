@@ -25,6 +25,10 @@ Magento2-RC2の簡単セットアップ開発環境（CentOS7.1)
 ## その他情報
 - フロントURI = `[Vagrant URL]/magento2/`
 - 管理画面URI = `[Vagrant URL]/magento2/admin/`
+- 管理ユーザー = `admin`
+- 管理ユーザーパス = `admin123`
+
+[Show all variables](provision/group_vars/all.yml.sample)
 
 ## 備考
 [Magento2クイックセットアップドキュメント](http://devdocs.magento.com/guides/v2.0/install-gde/install-quick-ref.html)
