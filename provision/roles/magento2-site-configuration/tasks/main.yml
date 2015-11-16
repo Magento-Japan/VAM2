@@ -3,7 +3,16 @@
   shell: php /var/www/html/magento2/bin/magento setup:install --base-url={{ base_url }}/magento2/ --db-host=localhost --db-name={{ db_name }} --db-user={{ db_user }} --db-password={{ db_password}} --backend-frontname={{ backend_frontname }} --admin-firstname={{ admin_firstname }} --admin-lastname={{ admin_lastname }} --admin-email={{ admin_email }} --admin-user={{ admin_user }} --admin-password={{ admin_password }} --language={{ language }} --currency={{ currency }} --timezone={{ timezone }} --use-rewrites=1
 
 - name: Set Developer mode
-  shell: php magento deploy:mode:set developer
+  shell: php /var/www/html/magento2/bin/magento deploy:mode:set developer
+
+- name: Import sample data
+  shell: php /var/www/html/magento2/bin/magento sampledata:deploy
+
+- name: Reindex index
+  shell: php /var/www/html/magento2/bin/magento indexer:reindex
+
+- name: Flush all cache
+  shell: php /var/www/html/magento2/bin/magento cache:flush --all
 
 - name: chown /var/www/html
   file: path=/var/www/html state=directory recurse=yes owner=apache group=apache
@@ -13,3 +22,6 @@
 
 - name: Set Permission to app files
   shell: find /var/www/html/ -type f -exec chmod 660 {} \;
+
+- name: Add execute Permission to app/bin directory
+  shell: chmod +x /var/www/html/magento2/bin/magento
