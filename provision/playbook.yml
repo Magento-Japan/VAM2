@@ -6,5 +6,7 @@
   roles:
     - centos7-init
     - lamp56
+    - change-timezone-ja
+    - install-dev-tools
     - magento2
-    # - magento2-jp-translation
+    - magento2-site-configuration
