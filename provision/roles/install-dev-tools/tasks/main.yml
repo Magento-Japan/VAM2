@@ -1,0 +1,7 @@
+---
+- name: yum install development tools
+  yum: name={{ item }} state=present
+  with_items:
+    - git
+    - vim
+    - tree
