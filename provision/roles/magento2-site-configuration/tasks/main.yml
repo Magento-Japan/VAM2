@@ -12,7 +12,7 @@
   shell: php /var/www/html/magento2/bin/magento indexer:reindex
 
 - name: Flush all cache
-  shell: php /var/www/html/magento2/bin/magento cache:flush --all
+  shell: php /var/www/html/magento2/bin/magento cache:flush
 
 - name: chown /var/www/html
   file: path=/var/www/html state=directory recurse=yes owner=apache group=apache
