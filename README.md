@@ -34,7 +34,7 @@ Magento2-RC2の簡単セットアップ開発環境（CentOS7.1)
 [Magento2クイックセットアップドキュメント](http://devdocs.magento.com/guides/v2.0/install-gde/install-quick-ref.html)
 
 # (EN) VAM2(vagrant-ansible-magento2)
-Magento2β on CentOS7.1 LAMP stack.
+Magento2 RC2 on CentOS7.1 LAMP stack.
 
 ## Configuration
 0. `git clone`
