@@ -2,14 +2,22 @@
 - name: Import sample data
   shell: php /var/www/html/magento2/bin/magento sampledata:deploy
 
-- name: Updating sample data modules
+- name: Updating sample data modules to DB
   shell: php /var/www/html/magento2/bin/magento setup:upgrade
+
+- name: Remove old cache
+  shell: rm -rf /var/www/html/magento2/var/generation/* /var/www/html/magento2/var/cache/*
 
 - name: Reindex index
   shell: php /var/www/html/magento2/bin/magento indexer:reindex
 
 - name: Flush all cache
   shell: php /var/www/html/magento2/bin/magento cache:flush
+
+# Enable sample data module installation option
+
+- name: Reconfigure store
+  shell: php /var/www/html/magento2/bin/magento setup:install --base-url={{ base_url }}/magento2/ --db-host=localhost --db-name={{ db_name }} --db-user={{ db_user }} --db-password={{ db_password}} --backend-frontname={{ backend_frontname }} --admin-firstname={{ admin_firstname }} --admin-lastname={{ admin_lastname }} --admin-email={{ admin_email }} --admin-user={{ admin_user }} --admin-password={{ admin_password }} --language={{ m2_language }} --currency={{ m2_currency }} --timezone={{ m2_timezone }} --use-rewrites=1 --use-sample-data
 
 # Reset permission
 
