@@ -34,4 +34,8 @@
     - http
     - https
     - smtp
-  notify: restart firewalld
+
+- name: restart firewalld
+  service:
+    name: firewalld
+    state: restarted
