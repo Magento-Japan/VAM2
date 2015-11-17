@@ -109,10 +109,10 @@
 - name: update mysql root password for all root accounts
   mysql_user: name=root password=password state=present
 
-# restrat httpd & mysqld
+# Configure setting to httpd
 
-- name: restart httpd
+- name: Restart httpd
   service: name=httpd state=restarted
 
-- name: restart mariadb
-  service: name=mysql state=restarted
+- name: Wait for httpd restarted
+  wait_for: port=80 delay=30
