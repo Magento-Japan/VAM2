@@ -13,6 +13,6 @@ admin_lastname: User
 admin_user: admin
 admin_email: user@example.com
 admin_password: admin123
-language: ja_JP
-currency: JPY
-timezone: Asia/Tokyo
+m2_language: ja_JP
+m2_currency: JPY
+m2_timezone: Asia/Tokyo
