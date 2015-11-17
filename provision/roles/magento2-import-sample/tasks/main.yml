@@ -1,0 +1,26 @@
+---
+- name: Import sample data
+  shell: php /var/www/html/magento2/bin/magento sampledata:deploy
+
+- name: Updating sample data modules
+  shell: php /var/www/html/magento2/bin/magento setup:upgrade
+
+- name: Reindex index
+  shell: php /var/www/html/magento2/bin/magento indexer:reindex
+
+- name: Flush all cache
+  shell: php /var/www/html/magento2/bin/magento cache:flush
+
+# Reset permission
+
+- name: chown /var/www/html
+  file: path=/var/www/html state=directory recurse=yes owner=apache group=apache
+
+- name: Set permission to app directory
+  shell: find /var/www/html/ -type d -exec chmod 770 {} \;
+
+- name: Set Permission to app files
+  shell: find /var/www/html/ -type f -exec chmod 660 {} \;
+
+- name: Add execute Permission to app/bin directory
+  shell: chmod u+x /var/www/html/magento2/bin/magento

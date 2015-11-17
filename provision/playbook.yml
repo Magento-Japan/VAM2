@@ -10,3 +10,4 @@
     - install-dev-tools
     - magento2
     - magento2-site-configuration
+    - magento2-import-sample
