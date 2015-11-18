@@ -1,4 +1,10 @@
 ---
+- name: Update for credentials
+  shell: composer update
+  args:
+    chdir: /var/www/html/magento2
+  sudo: no
+
 - name: Import sample data
   shell: php /var/www/html/magento2/bin/magento sampledata:deploy
 
