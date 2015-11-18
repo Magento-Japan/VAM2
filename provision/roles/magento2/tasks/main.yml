@@ -53,13 +53,21 @@
   shell: composer config -g github-oauth.github.com {{ github_token }}
   sudo: no
 
+# Prepare magento2 download
+
+- name: Install expect to input Account info
+  yum: name=expect state=present
+
+- name: Copy install_m2 script to remote
+  template: src=install_m2.sh.j2 dest=/var/www/html/install_m2.sh owner=vagrant group=vagrant mode=0700
+
 # Install magento2 app
 
 - name: chown /var/www/html
   file: path=/var/www/html state=directory owner=vagrant group=vagrant
 
-- name: Install magento2
-  shell: composer create-project magento/project-community-edition --stability="beta" magento2
+- name: Execute install_m2 script on remote
+  command: ./install_m2.sh
   args:
     chdir: /var/www/html
   sudo: no

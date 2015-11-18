@@ -1,6 +1,9 @@
 ---
 github_token:
 
+magento_account_name:
+magento_account_pass:
+
 base_url: http://192.168.33.10
 
 db_name: magento2_db
