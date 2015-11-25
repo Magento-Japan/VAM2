@@ -1,11 +1,14 @@
 English Version Below
 
 # VAM2(vagrant-ansible-magento2)
-Magento2 CEの簡単セットアップ開発環境（CentOS7.1)
+Vagrantの自動provisionを利用したMagento2 CEの簡単セットアップ開発環境（CentOS7.1)
+
+実行する親機（利用しているOSX）にVagrant実行環境および、Ansible実行環境が必要になります。また、現時点（2015/11/25）での利用環境はMacのみを想定しています。
 
 ほぼすべてのステップは[公式ドキュメント](http://devdocs.magento.com/guides/v2.0/install-gde/bk-install-guide.html)に準拠しています。
 
 ## 利用方法
+0. 必要な環境を準備する（OSX + Vagrant + Ansible + Virtualbox）
 0. 任意のディレクトリに`git clone`。
 0. `/provision/group_vars/all.yml.sample`を`/provision/group_vars/all.yml`に変更。
 0. `/provision/group_vars/all.yml`の`github_token:`に [github personal access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/)を追加。※[composer installのAPI制限](https://getcomposer.org/doc/articles/troubleshooting.md#api-rate-limit-and-oauth-tokens)対策。
@@ -18,6 +21,7 @@ Magento2 CEの簡単セットアップ開発環境（CentOS7.1)
 - MariaDB 10.0.22 (from mariadb.org rpm)
 
 ## 必要要件（以下環境での動作確認済み）
+- OSX = 10.10.5
 - [vagrant](https://www.vagrantup.com/) = 1.7.4
 - [ansible](http://www.ansible.com/) = 1.9.4
 - [virtualbox](https://www.virtualbox.org/wiki/Downloads) = 5.0.10
