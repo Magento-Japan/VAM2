@@ -3,10 +3,10 @@
 spawn composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento2
 
 expect "Username:"
-send "{{ magento_account_name }}\n"
+send "{{ magento_public_key }}\n"
 
 expect "Password:"
-send "{{ magento_account_pass }}\n"
+send "{{ magento_private_key }}\n"
 
 expect "\[Yn\]"
 send "Y\n"

@@ -1,8 +1,8 @@
 ---
 github_token:
 
-magento_account_name:
-magento_account_pass:
+magento_public_key:
+magento_private_key:
 
 base_url: http://192.168.33.10
 
