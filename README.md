@@ -3,28 +3,35 @@ English Version Below
 # VAM2(vagrant-ansible-magento2)
 Vagrantの自動provisionを利用したMagento2 CEの簡単セットアップ開発環境（CentOS7.1)
 
-実行する親機（利用しているOSX）にVagrant実行環境および、Ansible実行環境が必要になります。また、現時点（2015/11/25）での利用環境はMacのみを想定しています。
+ほぼすべてのインストールステップは[公式ドキュメント](http://devdocs.magento.com/guides/v2.0/install-gde/bk-install-guide.html)に準拠しています。
 
-ほぼすべてのステップは[公式ドキュメント](http://devdocs.magento.com/guides/v2.0/install-gde/bk-install-guide.html)に準拠しています。
+### 注意
+- 実行する親機（利用しているOSX）にVagrant実行環境および、Ansible実行環境が必要になります。
+- また、現時点（2015/11/25）での利用環境はMacのみを想定しています。
+- M2公式での実装の変化には緩やかについていきます。詳しくはgithubリリースを参照ください。
 
 ## 利用方法
 0. 必要な環境を準備する（OSX + Vagrant + Ansible + Virtualbox）
 0. 任意のディレクトリに`git clone`。
 0. `/provision/group_vars/all.yml.sample`を`/provision/group_vars/all.yml`に変更。
 0. `/provision/group_vars/all.yml`の`github_token:`に [github personal access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/)を追加。※[composer installのAPI制限](https://getcomposer.org/doc/articles/troubleshooting.md#api-rate-limit-and-oauth-tokens)対策。
-0. おなじく、`all.yml`にて。[magento.comでアカウントを作成し](http://magento.com/)、アカウントネームとパスワードを `magento_account_name:`と`magento_account_pass:`に入力する.([Magento2-CEのダウンロード認証のため](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/integrator_install.html#integrator-first-composer-ce))
+0. `all.yml`にてMagento`Secure Keys`を入力します。[magento.comでアカウントを作成し](http://magento.com/)、[MY ACCOUNT] > [Developpers] >
+[[Secure Keys](http://www.magentocommerce.com/magento-connect/customerdata/secureKeys/list/)]で`Secure Keys`を生成し、`magento_public_key:`と`magento_private_key:`に入力する.([Magento2-CEのダウンロード認証のため](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/integrator_install.html#integrator-first-composer-ce))
 0. `vagrant up`
 
-## 構成
-- boxcutter/centos71 (virtualbox, 2.0.8)
-- PHP 5.6 (from webtatic rpm)
-- MariaDB 10.0.22 (from mariadb.org rpm)
+### Magento2`Secure Keys`について
+Magento2CEのダウンロードには、開発者向け認証キー・パスが必要になりました。詳しくは[こちら](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)を参照ください。
 
 ## 必要要件（以下環境での動作確認済み）
 - OSX = 10.10.5
 - [vagrant](https://www.vagrantup.com/) = 1.7.4
 - [ansible](http://www.ansible.com/) = 1.9.4
 - [virtualbox](https://www.virtualbox.org/wiki/Downloads) = 5.0.10
+
+## 構成
+- boxcutter/centos71 (virtualbox, 2.0.8)
+- PHP 5.6 (from webtatic rpm)
+- MariaDB 10.0.22 (from mariadb.org rpm)
 
 ## DB情報
 - `db name` = `magento2_db`
