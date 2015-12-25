@@ -1,7 +1,7 @@
 ---
 # Set timezone Ja
 - name: Register timezone var
-  shell: timedatectl | grep Timezone
+  shell: timedatectl | grep "Time zone"
   register: timezone
 
 - name: Change Timezone
