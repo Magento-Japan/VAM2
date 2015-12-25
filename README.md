@@ -5,7 +5,44 @@ Vagrantの自動provisionを利用したMagento2 CEの簡単セットアップ�
 
 ほぼすべてのインストールステップは[公式ドキュメント](http://devdocs.magento.com/guides/v2.0/install-gde/bk-install-guide.html)に準拠しています。
 
+
+# box配布を開始しました
+VAM2で構築したboxを[kzkiq2nd/vam2@Atlas](https://atlas.hashicorp.com/kzkiq2nd/boxes/vam2)で配布開始しました。
+
+Vagrant 1.7.4 が入っていれば以下の手順で起動できます。
+
+__とりあえず動かしたいという方にはboxを利用するのをおすすめします__
+
+```
+vagrant box add kzkiq2nd/vam2
+vagrant init kzkiq2nd/vam2
+vagrant up
+```
+
+### 仕様
+Magento2 + Sample-Dataのtar.gzインストール版
+
+
+- CentOS7.1
+- PHP5.6
+- MariaDB10
+
+
+- 管理画面URL = `/admin/`
+- 管理ユーザー = `admin`
+- 管理パスワード = `admin123`
+
+
+- DBネーム = `magento2_db`
+- DBユーザー = `magento2_db_user`
+- DBパスワード = `magento2_db_pass`
+
 ### 注意
+boxサイズが1.3GBほどあり重いのでご注意ください。
+
+## VAM2での起動の注意
+VAM2でVMを構築することは可能ですが、tar.gzインストール版とComposerインストール版が混在した状態であり、中を読まれる際はご注意ください。
+
 - 実行する親機（利用しているOSX）にVagrant実行環境および、Ansible実行環境が必要になります。
 - また、現時点（2015/11/25）での利用環境はMacのみを想定しています。
 - M2公式での実装の変化には緩やかについていきます。詳しくはgithubリリースを参照ください。
@@ -29,7 +66,7 @@ Magento2CEのダウンロードには、開発者向け認証キー・パスが�
 - [virtualbox](https://www.virtualbox.org/wiki/Downloads) = 5.0.10
 
 ## 構成
-- boxcutter/centos71 (virtualbox, 2.0.8)
+- boxcutter/centos71 (virtualbox, 2.0.9)
 - PHP 5.6 (from webtatic rpm)
 - MariaDB 10.0.22 (from mariadb.org rpm)
 
@@ -53,6 +90,15 @@ Magento2CEのダウンロードには、開発者向け認証キー・パスが�
 Magento2 CE on CentOS7.1 LAMP stack.
 
 Almost all the steps of deploy is based on [Developer Documentation(2.0)](http://devdocs.magento.com/guides/v2.0/install-gde/bk-install-guide.html).
+
+## NOTICE
+You can use [Vagrant Box packed with VAM2 from Atlas](https://atlas.hashicorp.com/kzkiq2nd/boxes/vam2).
+
+```
+vagrant box add kzkiq2nd/vam2
+vagrant init kzkiq2nd/vam2
+vagrant up
+```
 
 ## Configuration
 0. `git clone`

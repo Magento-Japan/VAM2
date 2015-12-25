@@ -21,11 +21,11 @@
     - curl
     - ImageMagick
 
-- name: yum install optional packages for Magento2
-  yum: name={{ item }} state=present
-  with_items:
-    - php56w-pecl-xdebug
-    - php-phpunit-PHPUnit
+# - name: yum install optional packages for Magento2
+#   yum: name={{ item }} state=present
+#   with_items:
+#     - php56w-pecl-xdebug
+#     - php-phpunit-PHPUnit
 
 - name: Set always_populate_raw_post_data disable on php.ini(php56)
   lineinfile:
@@ -49,34 +49,38 @@
   args:
     creates: /usr/local/bin/composer
 
-- name: Set github token for composer installation
-  shell: composer config -g github-oauth.github.com {{ github_token }}
-  sudo: no
+# - name: Set github token for composer installation
+#   shell: composer config -g github-oauth.github.com {{ github_token }}
+#   sudo: no
 
 # Prepare magento2 download
 
-- name: Install expect to input Account info
-  yum: name=expect state=present
+# - name: Install expect to input Account info
+#   yum: name=expect state=present
 
-- name: Copy install_m2 script to remote
-  template: src=install_m2.sh.j2 dest=/var/www/html/install_m2.sh owner=vagrant group=vagrant mode=0700
+# - name: Copy install_m2 script to remote
+#   template: src=install_m2.sh.j2 dest=/var/www/html/install_m2.sh owner=vagrant group=vagrant mode=0700
 
 # Install magento2 app
 
 - name: chown /var/www/html
   file: path=/var/www/html state=directory owner=vagrant group=vagrant
 
-- name: Execute install_m2 script on remote
-  command: ./install_m2.sh
-  args:
-    chdir: /var/www/html
-  sudo: no
+# - name: Execute install_m2 script on remote
+#   command: ./install_m2.sh
+#   args:
+#     chdir: /var/www/html
+#   sudo: no
 
 - name: add user vagrant to apache group
   user: name=vagrant append=yes groups="apache"
 
 - name: add user apache to vagrant group
   user: name=apache append=yes groups="vagrant"
+
+# Extract Magento2 APP archive
+- name: copy m2 files and unpack
+  unarchive: src="Magento-CE-2.0.0+Samples-2015-11-17-06-24-03.tar.gz" dest="/var/www/html" owner=apache group=apache mode=0755
 
 - name: chown /var/www/html
   file: path=/var/www/html state=directory recurse=yes owner=apache group=apache
@@ -88,7 +92,7 @@
   shell: find /var/www/html/ -type f -exec chmod 660 {} \;
 
 - name: Add execute Permission to app/bin directory
-  shell: chmod u+x /var/www/html/magento2/bin/magento
+  shell: chmod 770 /var/www/html/bin/magento
 
 # set PATH magento-cli
 

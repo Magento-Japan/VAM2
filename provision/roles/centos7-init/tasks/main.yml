@@ -1,6 +1,6 @@
 ---
-- name: yum upgrade all
-  yum: name=* state=latest
+# - name: yum upgrade all
+#   yum: name=* state=latest
 
 - name: yum install fundamental packages
   yum: name={{ item }} state=present

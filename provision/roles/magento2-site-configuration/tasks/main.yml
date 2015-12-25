@@ -1,16 +1,16 @@
 ---
 - name: Configure store
-  shell: php /var/www/html/magento2/bin/magento setup:install --base-url={{ base_url }}/magento2/ --db-host=localhost --db-name={{ db_name }} --db-user={{ db_user }} --db-password={{ db_password}} --backend-frontname={{ backend_frontname }} --admin-firstname={{ admin_firstname }} --admin-lastname={{ admin_lastname }} --admin-email={{ admin_email }} --admin-user={{ admin_user }} --admin-password={{ admin_password }} --language={{ m2_language }} --currency={{ m2_currency }} --timezone={{ m2_timezone }} --use-rewrites=1
-  sudo: no
+  shell: php /var/www/html/bin/magento setup:install --base-url={{ base_url }}/ --db-host=localhost --db-name={{ db_name }} --db-user={{ db_user }} --db-password={{ db_password}} --backend-frontname={{ backend_frontname }} --admin-firstname={{ admin_firstname }} --admin-lastname={{ admin_lastname }} --admin-email={{ admin_email }} --admin-user={{ admin_user }} --admin-password={{ admin_password }} --language={{ m2_language }} --currency={{ m2_currency }} --timezone={{ m2_timezone }} --use-rewrites=1
+  sudo: yes
 
 - name: Set Developer mode
-  shell: php /var/www/html/magento2/bin/magento deploy:mode:set developer
+  shell: php /var/www/html/bin/magento deploy:mode:set developer
 
 - name: Reindex index
-  shell: php /var/www/html/magento2/bin/magento indexer:reindex
+  shell: php /var/www/html/bin/magento indexer:reindex
 
 - name: Flush all cache
-  shell: php /var/www/html/magento2/bin/magento cache:flush
+  shell: php /var/www/html/bin/magento cache:flush
 
 # Reset permission
 
@@ -24,4 +24,4 @@
   shell: find /var/www/html/ -type f -exec chmod 660 {} \;
 
 - name: Add execute Permission to app/bin directory
-  shell: chmod u+x /var/www/html/magento2/bin/magento
+  shell: chmod 770 /var/www/html/bin/magento
