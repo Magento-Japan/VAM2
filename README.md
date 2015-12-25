@@ -23,16 +23,17 @@ vagrant up
 Magento2 + Sample-Dataのtar.gzインストール版
 
 
+#### 構成
 - CentOS7.1
 - PHP5.6
 - MariaDB10
 
-
+#### 管理画面
 - 管理画面URL = `/admin/`
 - 管理ユーザー = `admin`
 - 管理パスワード = `admin123`
 
-
+#### DB
 - DBネーム = `magento2_db`
 - DBユーザー = `magento2_db_user`
 - DBパスワード = `magento2_db_pass`
