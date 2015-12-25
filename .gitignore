@@ -1,3 +1,5 @@
 .DS_Store
 .vagrant
 all.yml
+
+provision/roles/magento2/files/Magento-CE-2.0.0+Samples-2015-11-17-06-24-03.tar.gz
