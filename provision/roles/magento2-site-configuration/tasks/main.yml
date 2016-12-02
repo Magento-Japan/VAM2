@@ -21,9 +21,9 @@
   shell: php /var/www/html/magento2/bin/magento setup:upgrade
   become: false
 
-- name: Set Developer mode
-  shell: php /var/www/html/magento2/bin/magento deploy:mode:set developer
-  become: false
+# - name: Set Developer mode
+#   shell: php /var/www/html/magento2/bin/magento deploy:mode:set developer
+#   become: false
 
 - name: Reindex index
   shell: php /var/www/html/magento2/bin/magento indexer:reindex
