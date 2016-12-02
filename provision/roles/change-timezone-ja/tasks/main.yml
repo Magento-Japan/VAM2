@@ -1,12 +1,6 @@
 ---
-# Set timezone Ja
-- name: Register timezone var
-  shell: timedatectl | grep "Time zone"
-  register: timezone
-
 - name: Change Timezone
   shell: timedatectl set-timezone Asia/Tokyo
-  when: timezone != "Asia/Tokyo (JST, +0900)"
 
 - name: Set Asia/Tokyo to date.timezone on php.ini
   lineinfile:
