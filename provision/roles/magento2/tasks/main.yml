@@ -29,6 +29,44 @@
     regexp: '^memory_limit'
     line: 'memory_limit = 2G'
 
+# Replace libicu 50.1.2 to 55.1
+# - name: remove libicu
+#   yum: name=libicu* state=absent
+#
+# - shell: "wget http://download.icu-project.org/files/icu4c/55.1/icu4c-55_1-src.tgz"
+#   args:
+#     chdir: /home/vagrant/
+#   become: false
+#
+# - shell: "tar zxf icu4c-55_1-src.tgz"
+#   args:
+#     chdir: /home/vagrant/
+#   become: false
+#
+# - shell: "./configure"
+#   args:
+#     chdir: /home/vagrant/icu/source/
+#   become: false
+#
+# - shell: "make"
+#   args:
+#     chdir: /home/vagrant/icu/source/
+#   become: false
+#
+# - shell: "make install"
+#   args:
+#     chdir: /home/vagrant/icu/source/
+#   become: true
+#
+# - yum: name=php70u-pear state=present
+#
+# - pear: name=pecl/intl state=present
+#   become: true
+#
+# - name: add intl extension
+#   template: src=intl.ini dest=/etc/php.d/intl.ini owner=root group=root mode=0644
+#   become: true
+
 - name: Change httpd.conf
   copy: src=httpd.conf.2.4.6 dest=/etc/httpd/conf/httpd.conf owner=root group=root mode=0644
 
