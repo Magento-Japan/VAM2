@@ -3,12 +3,13 @@ github_token:
 
 magento_public_key:
 magento_private_key:
+magento_version: 2.1.2
 
-base_url: http://192.168.33.10
+base_url: http://192.168.33.10/magento2/
 
 db_name: magento2_db
 db_user: magento2_db_user
-db_password: magento2_db_pass
+db_password: Magento2_db_pass!
 
 backend_frontname: admin
 admin_firstname: Magento
