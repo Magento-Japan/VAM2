@@ -46,7 +46,6 @@
   shell: composer config -g repositories.packagist composer https://packagist.jp
   become: false
 
-#
 - name: set composer auth.json
   template: src=auth.json.j2 dest=/home/vagrant/.config/composer/auth.json owner=vagrant group=vagrant mode=0600
   become: false
