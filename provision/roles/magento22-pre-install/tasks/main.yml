@@ -1,0 +1,54 @@
+---
+- name: install other requirement packages
+  yum: name={{ item }} state=present
+  with_items:
+    - curl
+    - ImageMagick
+
+- name: install composer globally
+  shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  args:
+    creates: /usr/local/bin/composer
+
+- name: composer use hirak/prestissimo
+  shell: composer global require "hirak/prestissimo:^0.3"
+  become: false
+
+- name: composer use packagist.jp(https)
+  shell: composer config -g repositories.packagist composer https://packagist.jp
+  become: false
+
+- name: set composer auth.json
+  template:
+    src: auth.json.j2
+    dest: /home/vagrant/.config/composer/auth.json
+    owner: vagrant
+    group: vagrant
+    mode: 0600
+  become: false
+
+- name: add vagrant user to apache group
+  user:
+    name: vagrant
+    append: yes
+    groups: apache
+
+- name: add apache user to vagrant group
+  user:
+    name: apache
+    append: yes
+    groups: vagrant
+
+- name: chown docroot
+  file:
+    path: /var/www/html/
+    state: directory
+    owner: apache
+    group: apache
+
+- name: create Magento22 dir
+  file:
+    path: /var/www/html/magento22
+    state: directory
+    owner: vagrant
+    group: vagrant

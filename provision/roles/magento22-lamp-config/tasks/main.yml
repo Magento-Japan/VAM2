@@ -1,0 +1,98 @@
+---
+# PHP Config
+- name: set PHP memory limit 2G
+  lineinfile:
+    dest: /etc/php.ini
+    backrefs: yes
+    regexp: '^memory_limit'
+    line: 'memory_limit = 2G'
+
+- name: set opcache.save_comments 1
+  lineinfile:
+    dest: /etc/php.d/10-opcache.ini
+    backrefs: yes
+    regexp: '^;opcache.save_comments=1'
+    line: 'opcache.save_comments=1'
+
+# httpd Config
+- name: Change httpd.conf
+  copy:
+    src: httpd.conf.2.4.6
+    dest: /etc/httpd/conf/httpd.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: for debug. change httpd log dir permission
+  file:
+    path: /var/log/httpd
+    state: directory
+    mode: 0755
+
+# mysql Config
+- name: install mysql-python package for ansible configuration
+  yum:
+    name: MySQL-python
+    state: present
+
+- name: get default mysql password (5.7)
+  shell: "cat /var/log/mysqld.log | grep -oP '(?<=A temporary password is generated for root@localhost: ).*'"
+  register: mysql_root_pass
+
+- name: set ~/.my.cnf with empty pass (5.7)
+  template:
+    src: .my.cnf.j2
+    dest: /home/vagrant/.my.cnf
+    mode: 0600
+  become: false
+
+- name: set default mysql password to ~/.my.cnf (5.7)
+  lineinfile:
+    dest: /home/vagrant/.my.cnf
+    backrefs: yes
+    regexp: '^password='
+    line: 'password={{ mysql_root_pass.stdout }}'
+  become: false
+
+- name: change root password
+  shell: mysql --defaults-file=/home/vagrant/.my.cnf -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ db_root_pass }}'"
+
+- name: change default mysql password to ~/.my.cnf (5.7)
+  lineinfile:
+    dest: /home/vagrant/.my.cnf
+    backrefs: yes
+    regexp: '^password='
+    line: 'password={{ db_root_pass }}'
+  become: false
+
+# Adding app database
+- name: create app database
+  mysql_db:
+    name: "{{ db_name }}"
+    collation: utf8_general_ci
+    encoding: utf8
+    state: present
+  become: false
+
+- name: create app database user
+  mysql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    priv: "{{ db_name }}.*:ALL"
+    host: localhost
+    state: present
+  become: false
+
+# After config
+- name: restart mysqld
+  service:
+    name: mysqld
+    state: restarted
+
+- name: restart httpd
+  service:
+    name: httpd
+    state: restarted
+
+- name: wait for httpd restarted
+  wait_for: port=80 delay=30

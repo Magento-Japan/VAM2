@@ -8,5 +8,7 @@
     - lamp7157
     - timezone-ja
     - dev-tools
-    - magento2
-    - magento2-site-configuration
+    - magento22-lamp-config
+    - magento22-pre-install
+    - magento22-install
+    - magento22-site-config
