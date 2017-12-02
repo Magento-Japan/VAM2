@@ -4,7 +4,12 @@
   become: false
 
 - name: set composer auth.json
-  template: src=auth.json.j2 dest=/var/www/html/magento2/var/composer_home/auth.json owner=vagrant group=vagrant mode=0600
+  template:
+    src: auth.json.j2
+    dest: /var/www/html/magento2/var/composer_home/auth.json
+    owner: vagrant
+    group: apache
+    mode: 0644
   become: false
 
 - name: composer use packagist.jp(https)
