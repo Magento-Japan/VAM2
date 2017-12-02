@@ -1,10 +1,10 @@
 ---
 - name: Configure store
-  shell: php /var/www/html/magento22/bin/magento setup:install --base-url={{ base_url }} --db-host=localhost --db-name={{ db_name }} --db-user={{ db_user }} --db-password={{ db_password}} --backend-frontname={{ backend_frontname }} --admin-firstname={{ admin_firstname }} --admin-lastname={{ admin_lastname }} --admin-email={{ admin_email }} --admin-user={{ admin_user }} --admin-password={{ admin_password }} --language={{ m2_language }} --currency={{ m2_currency }} --timezone={{ m2_timezone }} --use-rewrites=1
+  shell: php /var/www/html/magento2/bin/magento setup:install --base-url={{ base_url }} --db-host=localhost --db-name={{ db_name }} --db-user={{ db_user }} --db-password={{ db_password}} --backend-frontname={{ backend_frontname }} --admin-firstname={{ admin_firstname }} --admin-lastname={{ admin_lastname }} --admin-email={{ admin_email }} --admin-user={{ admin_user }} --admin-password={{ admin_password }} --language={{ m2_language }} --currency={{ m2_currency }} --timezone={{ m2_timezone }} --use-rewrites=1
   become: false
 
 - name: set composer auth.json
-  template: src=auth.json.j2 dest=/var/www/html/magento22/var/composer_home/auth.json owner=vagrant group=vagrant mode=0600
+  template: src=auth.json.j2 dest=/var/www/html/magento2/var/composer_home/auth.json owner=vagrant group=vagrant mode=0600
   become: false
 
 - name: composer use packagist.jp(https)
@@ -12,21 +12,24 @@
   become: false
 
 - name: Deploy sample data
-  shell: php /var/www/html/magento22/bin/magento sampledata:deploy
+  shell: php /var/www/html/magento2/bin/magento sampledata:deploy
   become: false
 
 - name: Show sample data
-  shell: php /var/www/html/magento22/bin/magento setup:upgrade
+  shell: php /var/www/html/magento2/bin/magento setup:upgrade
   become: false
 
 - name: Set Developer mode
-  shell: php /var/www/html/magento22/bin/magento deploy:mode:set developer
+  shell: php /var/www/html/magento2/bin/magento deploy:mode:set developer
   become: false
 
 - name: Reindex index
-  shell: php /var/www/html/magento22/bin/magento indexer:reindex
+  shell: php /var/www/html/magento2/bin/magento indexer:reindex
   become: false
 
 - name: Flush all cache
-  shell: php /var/www/html/magento22/bin/magento cache:flush
+  shell: php /var/www/html/magento2/bin/magento cache:flush
   become: false
+
+- name: set owner:group to app files
+  shell: chown -R vagrant:apache /var/www/html/magento2

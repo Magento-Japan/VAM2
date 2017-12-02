@@ -46,9 +46,9 @@
     owner: apache
     group: apache
 
-- name: create Magento22 dir
+- name: create Magento2 dir
   file:
-    path: /var/www/html/magento22
+    path: /var/www/html/magento2
     state: directory
     owner: vagrant
     group: vagrant
