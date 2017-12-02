@@ -6,7 +6,7 @@
   roles:
     - centos74-init
     - lamp7157
-    - change-timezone-ja
-    - install-dev-tools
+    - timezone-ja
+    - dev-tools
     - magento2
     - magento2-site-configuration
