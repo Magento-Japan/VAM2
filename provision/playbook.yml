@@ -1,12 +1,14 @@
 ---
-- name: configure Magento2 to Vagrant CentOS7
+- name: configure Magento2.2 to CentOS7.4 on Vagrant2.0
   hosts: all
   max_fail_percentage: 0
   become: true
   roles:
-    - centos7-init
-    - lamp7057
-    - change-timezone-ja
-    - install-dev-tools
-    - magento2
-    - magento2-site-configuration
+    - centos74-init
+    - lamp7157
+    - timezone-ja
+    - dev-tools
+    - magento22-lamp-config
+    - magento22-pre-install
+    - magento22-install
+    - magento22-site-config

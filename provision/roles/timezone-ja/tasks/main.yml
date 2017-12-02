@@ -1,8 +1,9 @@
 ---
-- name: Change Timezone
-  shell: timedatectl set-timezone Asia/Tokyo
+- name: set timezone to Asia/Tokyo
+  timezone:
+    name: Asia/Tokyo
 
-- name: Set Asia/Tokyo to date.timezone on php.ini
+- name: set Asia/Tokyo to date.timezone on php.ini
   lineinfile:
     dest: /etc/php.ini
     backrefs: yes

@@ -1,0 +1,22 @@
+---
+- name: install Magento 2.2.1
+  composer:
+    command: "create-project"
+    arguments: "--repository-url=https://repo.magento.com/ magento/project-community-edition /var/www/html/magento2 {{ magento_version }}"
+    working_dir: "/var/www/html/magento2"
+  become: false
+
+- name: set permission to app directory
+  shell: find /var/www/html/ -type d -exec chmod 775 {} \;
+
+- name: set permission to app files
+  shell: find /var/www/html/ -type f -exec chmod 664 {} \;
+
+- name: set owner:group to app files
+  shell: chown -R vagrant:apache /var/www/html/magento2
+
+- name: add execute permission to app/bin directory
+  shell: chmod 775 /var/www/html/magento2/bin/magento
+
+- name: set magento-cli PATH to .bash_profile
+  lineinfile: dest=/home/vagrant/.bash_profile line="export PATH=$PATH:/var/www/html/magento2/bin"

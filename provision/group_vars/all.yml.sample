@@ -1,12 +1,12 @@
 ---
 github_token:
-
 magento_public_key:
 magento_private_key:
-magento_version: 2.1.2
 
+magento_version: 2.2.1
 base_url: http://192.168.33.10/magento2/
 
+db_root_pass: Passw0rd!Passw0rd!
 db_name: magento2_db
 db_user: magento2_db_user
 db_password: Magento2_db_pass!
@@ -16,7 +16,7 @@ admin_firstname: Magento
 admin_lastname: User
 admin_user: admin
 admin_email: user@example.com
-admin_password: admin123
+admin_password: AdminPassw0rd!123
 m2_language: ja_JP
 m2_currency: JPY
 m2_timezone: Asia/Tokyo
