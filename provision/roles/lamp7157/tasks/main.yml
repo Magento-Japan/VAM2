@@ -1,0 +1,65 @@
+---
+- name: install httpd24
+  yum: name={{ item }} state=present
+  with_items:
+    - httpd
+    - httpd-devel
+
+- name: install ius php71 rpm
+  yum:
+    state: present
+    name: http://dl.iuscommunity.org/pub/ius/stable/CentOS/7/x86_64/ius-release-1.0-14.ius.centos7.noarch.rpm
+
+- name: install php71u
+  yum: name={{ item }} state=present
+  with_items:
+    - php71u
+    - php71u-pdo
+    - php71u-mysqlnd
+    - php71u-opcache
+    - php71u-xml
+    - php71u-mcrypt
+    - php71u-gd
+    - php71u-devel
+    - php71u-intl
+    - php71u-mbstring
+    - php71u-bcmath
+    - php71u-json
+    - php71u-iconv
+    - php71u-soap
+
+- name: remove mariadb-libs (centos74 default installed)
+  yum:
+    name: mariadb-libs
+    state: absent
+
+- name: get mysql57 rpm
+  get_url:
+    url: http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+    dest: /home/vagrant/mysql57-community-release-el7-11.noarch.rpm
+
+- name: install mysql57 rpm
+  yum:
+    name: /home/vagrant/mysql57-community-release-el7-11.noarch.rpm
+    state: present
+
+- name: install mysql 57
+  yum:
+    name: "{{ item }}"
+    state: present
+    disablerepo: ius
+  with_items:
+    - mysql-community-client
+    - mysql-community-server
+
+- name: Start httpd
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Start mysqld
+  service:
+    name: mysqld
+    state: started
+    enabled: yes

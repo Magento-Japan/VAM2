@@ -5,6 +5,7 @@
   become: true
   roles:
     - centos74-init
+    - lamp7157
     - change-timezone-ja
     - install-dev-tools
     - magento2
