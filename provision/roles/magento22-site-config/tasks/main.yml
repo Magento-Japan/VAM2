@@ -10,7 +10,6 @@
     owner: vagrant
     group: apache
     mode: 0644
-  become: false
 
 - name: composer use packagist.jp(https)
   shell: composer config -g repositories.packagist composer https://packagist.jp
